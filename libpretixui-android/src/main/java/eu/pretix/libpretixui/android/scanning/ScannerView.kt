@@ -126,20 +126,13 @@ class ScannerView : FrameLayout {
                     )
                     .build()
         } else {
-            val chars = Camera2CameraInfo.from(camera!!.cameraInfo)
-            val builder = CaptureRequestOptions.Builder()
-            builder.setCaptureRequestOption(
-                CaptureRequest.CONTROL_AF_MODE,
-                CameraMetadata.CONTROL_AF_MODE_OFF
-            )
-            val distance = chars.getCameraCharacteristic(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE)
-            if (distance != null) {
-                builder.setCaptureRequestOption(
-                    CaptureRequest.LENS_FOCUS_DISTANCE,
-                    distance
-                )
-            }
-            Camera2CameraControl.from(camera!!.cameraControl).captureRequestOptions = builder.build()
+            Camera2CameraControl.from(camera!!.cameraControl).captureRequestOptions =
+                CaptureRequestOptions.Builder()
+                    .setCaptureRequestOption(
+                        CaptureRequest.CONTROL_AF_MODE,
+                        CameraMetadata.CONTROL_AF_MODE_AUTO
+                    )
+                    .build()
         }
         autofocusState = enabled
     }
